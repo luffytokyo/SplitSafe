@@ -31,7 +31,3 @@ The current build is a frontend MVP designed to be wired into Loyal's SDK next. 
 - add payout recipients
 - send private batch
 - share hidden-amount receipt
-
-## Next integration step
-
-Replace the mocked deposit and payout handlers in [app/stealth-pay-app.tsx](/Users/vijaykv/Desktop/Challenge/my-bun-app/app/stealth-pay-app.tsx:1) with Loyal SDK calls once the SDK package and credentials are available in this repo.

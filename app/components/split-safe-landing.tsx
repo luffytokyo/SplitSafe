@@ -5,7 +5,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 
 import {
-  HERO_METRICS,
+  HERO_TRUST_POINTS,
   NAV_ITEMS,
   SPLIT_FIELDS,
   SPLIT_MEMBERS,
@@ -81,7 +81,19 @@ function SplitSafeHeader({
         className="hidden items-center rounded-full border border-[var(--line)] bg-white/[0.045] p-1 text-sm text-[var(--muted)] backdrop-blur-xl lg:flex"
         aria-label="Primary"
       >
-        {NAV_ITEMS.map((item) => (
+        <Link
+          href="/create"
+          className="rounded-full px-5 py-3 transition hover:bg-white/[0.08] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)]"
+        >
+          Create
+        </Link>
+        <Link
+          href="/dashboard"
+          className="rounded-full px-5 py-3 transition hover:bg-white/[0.08] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)]"
+        >
+          Dashboard
+        </Link>
+        {NAV_ITEMS.slice(2).map((item) => (
           <a
             key={item}
             href={`#${item.toLowerCase()}`}
@@ -130,29 +142,24 @@ function HeroCopy() {
 
       <div className="motion-rise motion-delay-5 mt-7 flex flex-col gap-3 sm:flex-row text-black/70">
         <a
-          href="#create"
+          href="/create"
           className="interactive-lift inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--lime)] px-6 py-3 text-sm font-semibold text-black transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
         >
           Create private split
         </a>
         <a
-          href="#status"
+          href="/dashboard"
           className="interactive-lift inline-flex min-h-12 items-center justify-center rounded-full border border-black/15 bg-white/15 px-6 py-3 text-sm font-medium text-black backdrop-blur-xl transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
         >
-          View status
+          View dashboard
         </a>
       </div>
 
-      <dl className="motion-rise motion-delay-6 mt-8 grid max-w-xl grid-cols-3 gap-2.5">
-        {HERO_METRICS.map((metric) => (
-          <HeroMetric
-            key={metric.label}
-            label={metric.label}
-            suffix={"suffix" in metric ? metric.suffix : undefined}
-            value={metric.value}
-          />
+      <div className="motion-rise motion-delay-6 mt-8 grid max-w-xl gap-2.5 sm:grid-cols-3">
+        {HERO_TRUST_POINTS.map((point) => (
+          <TrustPoint key={point.label} label={point.label} value={point.value} />
         ))}
-      </dl>
+      </div>
     </div>
   );
 }
@@ -227,24 +234,13 @@ function SplitPreview() {
   );
 }
 
-function HeroMetric({
-  label,
-  suffix,
-  value,
-}: {
-  label: string;
-  suffix?: string;
-  value: string;
-}) {
+function TrustPoint({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-black/10 bg-white/12 p-3 text-black backdrop-blur-xl">
-      <dt className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
+    <div className="rounded-2xl border border-black/10 bg-white/12 p-3.5 text-black backdrop-blur-xl">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
         {label}
-      </dt>
-      <dd className="mt-1.5 flex items-baseline gap-1 font-mono font-semibold tabular-nums text-black">
-        <span className="text-lg">{value}</span>
-        {suffix ? <span className="text-[10px] text-black/45">{suffix}</span> : null}
-      </dd>
+      </p>
+      <p className="mt-2 text-sm font-semibold leading-5 text-black">{value}</p>
     </div>
   );
 }
